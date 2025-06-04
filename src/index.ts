@@ -1,19 +1,20 @@
 import express from "express";
-import { PrismaClient } from "./generated/prisma";
+import { PrismaClient } from "@prisma/client";
 
 const app = express();
-const primsaClient = new PrismaClient();
+const prismaClient = new PrismaClient();
+
 
 app.get("/", async (req, res) => {
-    const data = await primsaClient.user.findMany();
+    const data = await prismaClient.user.findMany();
     res.json({
         message: "Hello World! Get endpoint",
-        data
+        data    
     });
 });
 
 app.post("/", async (req, res) => {
-    await primsaClient.user.create({
+    await prismaClient.user.create({
         data: {
             username: Math.random().toString(),
             password: Math.random().toString(),
